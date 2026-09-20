@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@layer base {
+  body {
+    background: #090a09;
+    color: #f5f4ed;
+  }
+
+  ::selection {
+    background: #c8ff3d;
+    color: #11120e;
+  }
+}
+
+@layer components {
+  .btn.btn-primary {
+    border-color: #c8ff3d;
+    background-color: #c8ff3d;
+    color: #11120e;
+  }
+
+  .btn.btn-primary:hover {
+    border-color: #dcff7a;
+    background-color: #dcff7a;
+  }
+
+  .input, .select, .textarea {
+    border-color: rgb(71 75 64 / 0.8);
+    background-color: rgb(24 26 22);
+    transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  }
+
+  .input:focus, .select:focus, .textarea:focus {
+    border-color: #c8ff3d;
+    box-shadow: 0 0 0 3px rgb(200 255 61 / 0.12);
+    outline: none;
+  }
+}
