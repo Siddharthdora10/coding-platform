@@ -545,21 +545,25 @@ const ProblemPage = () => {
               Submissions
             </button>
 
-             <button
-              onClick={() =>
-                setActiveLeftTab(
-                  "ChatAI"
-                )
-              }
-              className={`px-6 h-full text-sm ${
-                activeLeftTab ===
-                "ChatAI"
-                  ? "text-[#c8ff3d] border-b-2 border-[#c8ff3d]"
-                  : "text-gray-500 hover:text-white"
-              }`}
-            >
-              ChatAI
-            </button>
+            <button
+  onClick={() => {
+    if (!isAuthenticated) {
+      navigate("/login", {
+        state: { from: `/problem/${problemId}` }
+      });
+      return;
+    }
+
+    setActiveLeftTab("ChatAI");
+  }}
+  className={`px-6 h-full text-sm ${
+    activeLeftTab === "ChatAI"
+      ? "text-[#c8ff3d] border-b-2 border-[#c8ff3d]"
+      : "text-gray-500 hover:text-white"
+  }`}
+>
+  ChatAI
+</button>
 
           </div>
 
