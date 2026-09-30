@@ -1,7 +1,28 @@
 const { GoogleGenAI } = require("@google/genai");
-
+const redisClient = require("../config/redis");
+const DAILY_AI_LIMIT = 10;
 const solveDoubt = async (req, res) => {
     try {
+
+         const userId = req.result._id.toString();
+
+        const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Kolkata"
+        }).format(new Date());
+
+        const usageKey = `ai:usage:${userId}:${today}`;
+
+        const usage = await redisClient.incr(usageKey);
+
+        if (usage === 1) {
+            await redisClient.expire(usageKey, 172800);
+        }
+
+        if (usage > DAILY_AI_LIMIT) {
+            return res.status(429).json({
+                success: false,
+                message: "Daily AI chat limit reached. You can use the AI chatbot again tomorrow."
+            });
 
         const {
             message,
